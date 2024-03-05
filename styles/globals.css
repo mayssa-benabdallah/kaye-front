@@ -1,0 +1,42 @@
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+.zero-margin-list {
+  padding-left: 6%;
+}
+
+.zero-margin-list li {
+  margin: 0;
+}
+.red::marker{
+  color: red; /* Change the color of the bullet point */
+}
+
+.blue::marker{
+  color: blue; /* Change the color of the bullet point */
+}
+
+.green::marker{
+  color: green; /* Change the color of the bullet point */
+}
