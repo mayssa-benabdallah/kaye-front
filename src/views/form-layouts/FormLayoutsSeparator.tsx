@@ -1,242 +1,194 @@
-// ** React Imports
-import { ChangeEvent, forwardRef, MouseEvent, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Card from '@mui/material/Card';
+import Divider from '@mui/material/Divider';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import CardNavigation from 'src/views/cards/CardNavigation'
+
+import {  ElementType,  SyntheticEvent } from 'react'
 
 // ** MUI Imports
-import Card from '@mui/material/Card'
+import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
+import Link from '@mui/material/Link'
+import Alert from '@mui/material/Alert'
+import { styled } from '@mui/material/styles'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
+import InputLabel from '@mui/material/InputLabel'
+import AlertTitle from '@mui/material/AlertTitle'
+import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Button, { ButtonProps } from '@mui/material/Button'
+import Close from 'mdi-material-ui/Close'
 
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 120,
+  height: 120,
+  marginRight: theme.spacing(6.25),
+  borderRadius: theme.shape.borderRadius
+}))
 
-// ** Icons Imports
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
+const ButtonStyled = styled(Button)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  }
+}))
+
+const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
+  marginLeft: theme.spacing(4.5),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    marginLeft: 0,
+    textAlign: 'center',
+    marginTop: theme.spacing(4)
+  }
+}))
 
 interface State {
-  password: string
-  password2: string
-  showPassword: boolean
-  showPassword2: boolean
+  password: string;
+  password2: string;
+  showPassword: boolean;
+  showPassword2: boolean;
 }
 
-const CustomInput = forwardRef((props, ref) => {
-  return <TextField fullWidth {...props} inputRef={ref} label='Birth Date' autoComplete='off' />
-})
+const MapComponent = ({
+  markerPosition,
+  onMapClick,
+  onMarkerDragEnd,
+}: {
+  markerPosition: google.maps.LatLngLiteral;
+  onMapClick: (event: google.maps.MapMouseEvent) => void;
+  onMarkerDragEnd: (event: google.maps.MapMouseEvent) => void;
+}) => (
+  <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+    <GoogleMap
+      mapContainerStyle={{ height: '400px', width: '100%' }}
+      center={{ lat: 14.6928, lng: -17.4467 }}
+      zoom={12}
+      onClick={(e: google.maps.MapMouseEvent) => onMapClick(e)}
+    >
+      {markerPosition && (
+        <Marker
+          position={markerPosition}
+          draggable={true}
+          onDragEnd={(e: google.maps.MapMouseEvent) => onMarkerDragEnd(e)}
+        />
+      )}
+    </GoogleMap>
+  </LoadScript>
+);
 
 const FormLayoutsSeparator = () => {
-  // ** States
-  const [language, setLanguage] = useState<string[]>([])
-  const [date, setDate] = useState<Date | null | undefined>(null)
-  const [values, setValues] = useState<State>({
-    password: '',
-    password2: '',
-    showPassword: false,
-    showPassword2: false
-  })
+  const [markerPosition, setMarkerPosition] = useState<any>(null);
 
-  // Handle Password
-  const handlePasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
+  const handleMapClick = (event: google.maps.MapMouseEvent) => {
+    if (event.latLng) {
+      setMarkerPosition({
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      });
+    }
+  };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
-
-  // Handle Confirm Password
-  const handleConfirmChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
-  const handleClickShowConfirmPassword = () => {
-    setValues({ ...values, showPassword2: !values.showPassword2 })
-  }
-
-  const handleMouseDownConfirmPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
-
-  // Handle Select
-  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
-    setLanguage(event.target.value as string[])
-  }
+  const handleMarkerDragEnd = (event: google.maps.MapMouseEvent) => {
+    if (event.latLng) {
+      setMarkerPosition({
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      });
+    }
+  };
 
   return (
     <Card>
-      <CardHeader title='Multi Column with Form Separator' titleTypographyProps={{ variant: 'h6' }} />
+      <CardHeader title='Gerer retaurant' titleTypographyProps={{ variant: 'h6' }} />
 
       <Divider sx={{ margin: 0 }} />
 
-      <form onSubmit={e => e.preventDefault()}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <CardContent>
+        <Grid item xs={12} sx={{ pb: 4, pt: theme => `${theme.spacing(3)} !important` }}>
+        <Typography variant='h5'>Les restaurants Créer</Typography>
+      </Grid>
+
+      <Grid item xs={12} md={6}>
+        <CardNavigation />
+      </Grid>
           <Grid container spacing={5}>
-            <Grid item xs={12}>
+          <Grid item xs={12}>
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                1. Account Details
+                1. Détails du restaurant
               </Typography>
             </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label='Username' placeholder='carterLeonard' />
+            <Grid item xs={12} sm={12}>
+              <TextField fullWidth type='file' label='Image' />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth type='email' label='Email' placeholder='carterleonard@gmail.com' />
+            <Grid item xs={12} sm={12}>
+              <TextField fullWidth type='text' label='Nom du restaurant' placeholder='Nom du restaurant' />
             </Grid>
+          <Grid item xs={12} sm={12}>
+  <TextField
+    fullWidth
+    multiline
+    rows={4}
+    label='Description'
+    placeholder='Description'
+  />
+</Grid>
 
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel htmlFor='form-layouts-separator-password'>Password</InputLabel>
 
-                <OutlinedInput
-                  label='Password'
-                  value={values.password}
-                  id='form-layouts-separator-password'
-                  onChange={handlePasswordChange('password')}
-                  type={values.showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        aria-label='toggle password visibility'
-                      >
-                        {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </Grid>
+        <Grid item xs={12} sm={6}>
+  <TextField
+    fullWidth
+    type='tel'
+    label='Numéro de téléphone'
+    placeholder='Numéro de téléphone'
+  />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+  <TextField
+    fullWidth
+    type='url'
+    label='Lien page Instagram'
+    placeholder='Lien page Instagram'
+  />
+        </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel htmlFor='form-layouts-separator-password-2'>Confirm Password</InputLabel>
-
-                <OutlinedInput
-                  value={values.password2}
-                  label='Confirm Password'
-                  id='form-layouts-separator-password-2'
-                  onChange={handleConfirmChange('password2')}
-                  type={values.showPassword2 ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        aria-label='toggle password visibility'
-                        onClick={handleClickShowConfirmPassword}
-                        onMouseDown={handleMouseDownConfirmPassword}
-                      >
-                        {values.showPassword2 ? <EyeOutline /> : <EyeOffOutline />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12}>
+        <Grid item xs={12}>
               <Divider sx={{ marginBottom: 0 }} />
             </Grid>
 
             <Grid item xs={12}>
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                2. Personal Info
+                2. Informations sur l'adresse
               </Typography>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label='First Name' placeholder='Leonard' />
-            </Grid>
-
+  <TextField
+    fullWidth
+    type='text'
+    label='Adresse'
+    placeholder='Adresse'
+  />
+        </Grid>      
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label='Last Name' placeholder='Carter' />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id='form-layouts-separator-select-label'>Country</InputLabel>
-
-                <Select
-                  label='Country'
-                  defaultValue=''
-                  id='form-layouts-separator-select'
-                  labelId='form-layouts-separator-select-label'
-                >
-                  <MenuItem value='UK'>UK</MenuItem>
-
-                  <MenuItem value='USA'>USA</MenuItem>
-
-                  <MenuItem value='Australia'>Australia</MenuItem>
-
-                  <MenuItem value='Germany'>Germany</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id='form-layouts-separator-multiple-select-label'>Language</InputLabel>
-
-                <Select
-                  multiple
-                  value={language}
-                  onChange={handleSelectChange}
-                  id='form-layouts-separator-multiple-select'
-                  labelId='form-layouts-separator-multiple-select-label'
-                  input={<OutlinedInput label='Language' id='select-multiple-language' />}
-                >
-                  <MenuItem value='English'>English</MenuItem>
-
-                  <MenuItem value='French'>French</MenuItem>
-
-                  <MenuItem value='Spanish'>Spanish</MenuItem>
-
-                  <MenuItem value='Portuguese'>Portuguese</MenuItem>
-
-                  <MenuItem value='Italian'>Italian</MenuItem>
-
-                  <MenuItem value='German'>German</MenuItem>
-
-                  <MenuItem value='Arabic'>Arabic</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <DatePicker
-                selected={date}
-                showYearDropdown
-                showMonthDropdown
-                placeholderText='MM-DD-YYYY'
-                customInput={<CustomInput />}
-                id='form-layouts-separator-date'
-                onChange={(date: Date) => setDate(date)}
+              {/* Add a new Grid item for the Google Map */}
+              <MapComponent
+                markerPosition={markerPosition}
+                onMapClick={handleMapClick}
+                onMarkerDragEnd={handleMarkerDragEnd}
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label='Phone No.' placeholder='+1-123-456-8790' />
-            </Grid>
+            {/* ... your existing form fields */}
           </Grid>
         </CardContent>
 
@@ -244,16 +196,16 @@ const FormLayoutsSeparator = () => {
 
         <CardActions>
           <Button size='large' type='submit' sx={{ mr: 2 }} variant='contained'>
-            Submit
+            Créer
           </Button>
 
           <Button size='large' color='secondary' variant='outlined'>
-            Cancel
+            Annuler
           </Button>
         </CardActions>
       </form>
     </Card>
-  )
-}
+  );
+};
 
-export default FormLayoutsSeparator
+export default FormLayoutsSeparator;

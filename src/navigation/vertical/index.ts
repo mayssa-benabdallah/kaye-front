@@ -16,15 +16,21 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Dashboard',
+      title: 'Dashboard restaurent',
       icon: HomeOutline,
-      path: '/'
+      path: '/restaurent'
     },
     {
-      title: 'Account Settings',
+      title: 'Paramétre du compte',
       icon: AccountCogOutline,
-      path: '/account-settings'
+      path: '/restaurent/account-settings'
     },
+    {
+      icon: CubeOutline,
+      title: 'Gerer restaurent',
+      path: '/restaurent/form-layouts'
+    },
+   
     {
       sectionTitle: 'Pages'
     },
@@ -69,11 +75,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: Table,
       path: '/tables'
     },
-    {
-      icon: CubeOutline,
-      title: 'Form Layouts',
-      path: '/form-layouts'
-    }
+   
   ]
 }
 

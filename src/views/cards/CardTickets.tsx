@@ -39,29 +39,29 @@ const CardTickets = () => {
     };
   }, []);
   return (
-    <Card sx={{ border: 0,boxShadow: 0, color: 'common.white', backgroundColor: '#191749;' }}>
+    <Card sx={{ border: 0,boxShadow: 0, color: 'common.white', backgroundColor: '#4c3d66;' }}>
       <CardContent sx={{ paddingX: 0}}>
         <Typography variant='h4' sx={{ my: 0, color: 'white' }}>
-          Title?
+        Etats des Réservations
         </Typography>
         <ul className="zero-margin-list" style={{ listStyleType: 'disc' }}>
           < Box sx={{mb: 5}}>
-        <Typography variant='subtitle2' sx={{ my: 0, color: 'grey' }}>
-          <li className="green">Acepted</li>
+        <Typography variant='subtitle2' sx={{ my: 0, color: 'white' }}>
+          <li className="green">Accepté</li>
         </Typography>
         <LinearProgressWithLabel variant='determinate' value={60}>   
         </LinearProgressWithLabel>
         </Box>
         < Box sx={{mb: 5}}>
-        <Typography variant='subtitle2' sx={{ my: 0, color: 'grey' }}>
-          <li>Pending</li>
+        <Typography variant='subtitle2' sx={{ my: 0, color: 'white' }}>
+          <li>En attente </li>
         </Typography> 
         <LinearProgressWithLabel variant='determinate' value={60}>   
         </LinearProgressWithLabel>
         </Box>
         < Box sx={{mb: 5}}>
-        <Typography variant='subtitle2' sx={{ my: 0, color: 'grey' }}>
-          <li className="red">Refused</li>
+        <Typography variant='subtitle2' sx={{ my: 0, color: 'white' }}>
+          <li className="red">Refusé</li>
         </Typography> 
         <LinearProgressWithLabel variant='determinate' value={60}>   
         </LinearProgressWithLabel>

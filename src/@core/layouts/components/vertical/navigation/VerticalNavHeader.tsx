@@ -60,7 +60,7 @@ const VerticalNavHeader = (props: Props) => {
         userVerticalNavMenuBranding(props)
       ) : (
         <LinkStyled href="/" passHref>
-          <svg width="120" height="52" viewBox="0 0 376 163" fill="none" xmlns="http://www.w3.org/2000/svg">{/*aspect ratio: 2.306 */}
+          <svg width="200" height="60" viewBox="0 0 376 163" fill="none" xmlns="http://www.w3.org/2000/svg">{/*aspect ratio: 2.306 */}
 <path d="M49.1951 26.1571H29.7954V124.82H49.1951V26.1571Z" fill="#FFBA3B"/>
 <path d="M117.104 51.44L74.1425 76.9399L121.323 84.5114L125.148 114.488L45.0693 97.4176L41.4077 68.7608L113.277 21.4585L117.104 51.44Z" fill="#FFBA3B"/>
 <path d="M182.352 117.425L163.639 62.8198L155.724 121.39L131.581 124.98L148.4 25.735L171.478 22.3015L206.5 113.832L182.352 117.425Z" fill="#FFBA3B"/>

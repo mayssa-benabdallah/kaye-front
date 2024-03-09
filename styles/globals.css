@@ -40,3 +40,23 @@ code[class*='language-'] {
 .green::marker{
   color: green; /* Change the color of the bullet point */
 }
+.css-i4bv87-MuiSvgIcon-root {
+  color: white;
+}
+.css-ul68p2-MuiInputBase-root-MuiOutlinedInput-root:hover:not(.Mui-focused) .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+
+}
+.css-1gi97co-MuiModal-root-MuiDrawer-root .MuiDrawer-paper{
+  background-color: #6269B6 !important ;
+}
+.css-bwjvwr-MuiTypography-root{
+  color : #B4A9D1 !important ;
+}
+.MuiBox-root.css-1c8ux76{
+  display: none;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-1chbyeo-MuiPaper-root-MuiCard-root{
+
+  height: 320px;
+}

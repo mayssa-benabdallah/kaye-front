@@ -16,7 +16,7 @@ const vsObjective = 100 - done/objective * 100;
 
 const CardTurnover = () => {
   return (
-    <Card sx={{ border: 0, boxShadow: 0, color: 'common.white', backgroundColor: '#191749' }}>
+    <Card sx={{ border: 0, boxShadow: 0, color: 'common.white', backgroundColor: '#4c3d66' }}>
   <CardContent sx={{ paddingX: 0, paddingBottom: '0 !important', position: 'relative' }}>
     <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', alignContent: 'center' }}>
       <Typography variant='h3' sx={{color: 'white', width: '10%', marginLeft: '25%'}}>

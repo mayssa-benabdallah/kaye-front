@@ -82,9 +82,7 @@ const CardBasic = () => {
         <Typography variant='h5'>Solid Cards</Typography>
       </Grid>
 
-      <Grid item xs={12} sm={6} md={4}>
-        <CardTurnover />
-      </Grid>
+     
 
       <Grid item xs={12} sm={6} md={4}>
         <CardTickets />

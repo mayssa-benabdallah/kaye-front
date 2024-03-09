@@ -1,5 +1,7 @@
 {
+
   "compilerOptions": {
+    "types": ["react-google-maps"] ,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "rootDir": "src",

@@ -55,7 +55,7 @@ const fetchData = async (period: string) => {
   }, [selectedPeriod]);
 
   return (
-    <Card sx={{ border: 0, boxShadow: 0, color: 'common.white', backgroundColor: '#191749' }}>
+    <Card sx={{ border: 0, boxShadow: 0, color: 'common.white', backgroundColor: '#4c3d66' }}>
       <CardContent sx={{ paddingX: 0, paddingBottom: '0 !important' }}>
       {/* Buttons for selecting time periods */}
       <Button onClick={() => setSelectedPeriod('lastDay')}>Last Day</Button>
